@@ -1,4 +1,4 @@
-const db = require('../db/dbConnect');
+const db = require('../configs/db.config');
 
 class Session {
   constructor(ssid, userId) {
@@ -11,7 +11,7 @@ class Session {
         ssid VARCHAR(255) PRIMARY KEY,
         user_id INT,
         created_at TIMESTAMPTZ DEFAULT NOW(),
-        FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+        FOREIGN KEY (user_id) REFERENCES member (id) ON DELETE CASCADE
       );`;
     try {
       await db.query(query);
