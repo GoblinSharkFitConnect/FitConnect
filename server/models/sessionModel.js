@@ -54,7 +54,7 @@ class Session {
   // verifies the session given the SSID
   static async verifySession(ssid) {
     if (!ssid) {
-      console.error('Error trying to verify session, so ssid');
+      console.error('Error trying to verify session, no ssid');
       return null;
     }
     // execute a table join on members and SSID to return the member information
