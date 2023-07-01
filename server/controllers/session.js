@@ -22,6 +22,8 @@ and verifying the existing session is active in the DB
  */
 
 sessionController.startSession = (req, res, next) => {
+  //TODO: Need to do this still
+
   return next();
 };
 
@@ -32,6 +34,7 @@ sessionController.startSession = (req, res, next) => {
  * as the user has an active session in their cookies
  */
 sessionController.deleteSession = (req, res, next) => {
+  //TODO: Need to do this still
   return next();
 };
 
@@ -42,6 +45,7 @@ sessionController.deleteSession = (req, res, next) => {
  * from the user's ssid cookie exists in the DB
  */
 sessionController.verifySession = (req, res, next) => {
+  //TODO: Need to do this still
   return next();
 };
 

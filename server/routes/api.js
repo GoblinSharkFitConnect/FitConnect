@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+// Controller imports
+const cookieController = require('../controllers/cookie');
+const memberController = require('../controllers/member');
+const sessionController = require('../controllers/session');
+const dataController = require('../controllers/data');
 /*
 ===================
 Login/Logout/Signup 
@@ -15,7 +20,7 @@ Login/Logout/Signup
  */
 router.post(
   '/login',
-  userController.checkCredentials,
+  memberController.checkCredentials,
   cookieController.setSSIDCookie,
   sessionController.startSession,
   (req, res, next) => {
@@ -32,7 +37,7 @@ router.post(
 router.delete(
   '/logout',
   sessionController.deleteSession,
-  cookieController.deleteSessionCookie,
+  cookieController.deleteSSIDCookie,
   (req, res, next) => {
     //TODO: Need to do this still
     res.sendStatus(200);
@@ -49,13 +54,11 @@ router.delete(
 
 router.post(
   '/signup',
-  userController.createUser,
-  userController.checkCredentials,
+  memberController.createUser,
   cookieController.setSSIDCookie,
   sessionController.startSession,
   (req, res, next) => {
-    //TODO: Need to do this still
-    res.sendStatus(200);
+    return res.sendStatus(200);
   }
 );
 
@@ -69,11 +72,13 @@ router.post(
 
 // route to get information about a workout
 router.get('/workout', dataController.getWorkout, (req, res, next) => {
+  //TODO: Need to do this still
   res.sendStatus(200);
 });
 
 // route to get information about an exercise
 router.get('/exercise', dataController.getExercise, (req, res, next) => {
+  //TODO: Need to do this still
   res.sendStatus(200);
 });
 
@@ -87,11 +92,13 @@ router.get('/exercise', dataController.getExercise, (req, res, next) => {
 
 // route to create a workout
 router.post('/workout', dataController.createWorkout, (req, res, next) => {
+  //TODO: Need to do this still
   res.sendStatus(200);
 });
 
 // route to create an exercise
 router.post('/exercise', dataController.createExercise, (req, res, next) => {
+  //TODO: Need to do this still
   res.sendStatus(200);
 });
 
@@ -105,11 +112,13 @@ router.post('/exercise', dataController.createExercise, (req, res, next) => {
 
 // route to delete a workout
 router.delete('/workout', dataController.deleteWorkout, (req, res, next) => {
+  //TODO: Need to do this still
   res.sendStatus(200);
 });
 
 // route to delete an exercise
 router.delete('/exercise', dataController.deleteExercise, (req, res, next) => {
+  //TODO: Need to do this still
   res.sendStatus(200);
 });
 
@@ -122,11 +131,13 @@ router.delete('/exercise', dataController.deleteExercise, (req, res, next) => {
 */
 // route to update a workout
 router.patch('/workout', dataController.updateWorkout, (req, res, next) => {
+  //TODO: Need to do this still
   res.sendStatus(200);
 });
 
 // route to update an exercise
 router.patch('/exercise', dataController.updateExercise, (req, res, next) => {
+  //TODO: Need to do this still
   res.sendStatus(200);
 });
 
