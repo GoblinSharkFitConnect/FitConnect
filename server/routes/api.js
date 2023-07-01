@@ -54,7 +54,7 @@ router.delete(
 
 router.post(
   '/signup',
-  memberController.createUser,
+  memberController.createMember,
   cookieController.setSSIDCookie,
   sessionController.startSession,
   (req, res, next) => {
