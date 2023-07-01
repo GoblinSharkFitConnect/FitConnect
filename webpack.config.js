@@ -39,7 +39,7 @@ module.exports = {
         port: 8080,
         static: {
             directory: path.resolve(__dirname, 'build'),
-            // publicPath: '/client',
+            publicPath: '/client',
         },
         // enable HMR on the devServer
         hot: true,
