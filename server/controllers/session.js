@@ -21,7 +21,17 @@ and verifying the existing session is active in the DB
  */
 
 sessionController.startSession = (req, res, next) => {
-  //TODO: Need to do this still
+  const ssid = res.locals.ssid;
+  if (!ssid)
+    return next({
+      log: 'Error, no SSID',
+      status: 400,
+      message: {
+        err: 'Error in the startSession method of the sessionController',
+      },
+    });
+  try {
+  } catch (error) {}
 
   return next();
 };

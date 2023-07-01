@@ -25,7 +25,7 @@ router.post(
   sessionController.startSession,
   (req, res, next) => {
     //TODO: Need to do this still
-    res.sendStatus(200);
+    return res.sendStatus(200);
   }
 );
 
@@ -58,8 +58,7 @@ router.post(
   cookieController.setSSIDCookie,
   sessionController.startSession,
   (req, res, next) => {
-    console.log('signup hit');
-    return res.sendStatus(200);
+    return res.redirect('/');
   }
 );
 
