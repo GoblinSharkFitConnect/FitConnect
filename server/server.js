@@ -29,6 +29,7 @@ app.use('/api/user', userRouter, (req, res) => {
 
 // main api routing
 app.use('/api', apiRouter, (req, res) => {
+  console.log('api hit');
   return res.sendStatus(200);
 });
 

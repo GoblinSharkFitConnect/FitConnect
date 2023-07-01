@@ -58,6 +58,7 @@ router.post(
   cookieController.setSSIDCookie,
   sessionController.startSession,
   (req, res, next) => {
+    console.log('signup hit');
     return res.sendStatus(200);
   }
 );

@@ -25,6 +25,7 @@ User Data in DB:
 memberController.createMember = async (req, res, next) => {
   //TODO: Double check key/values being sent on body from frontend
   const {username, password, firstName, lastName} = req.body;
+
   if (!username || !password || !firstName || !lastName) {
     //TODO: Is this supposed to return an error w/ 400
     //TODO: or maybe res.send something back saying invalid credentials?
@@ -41,7 +42,7 @@ memberController.createMember = async (req, res, next) => {
     //TODO: IMPORT USER MODEL ONCE JEREMY FINISHES
     // creates the user through the user model
     const member = new Member(username, password, firstName, lastName);
-    // user.save will return the user's info (need to get the serial'd ID) from the DB save
+    // member.save will return the user's info (need to get the serial'd ID) from the DB save
     const memberInfo = await member.save();
     // set the userInfo to the res.locals to pass to other middleware (for session stuff)
     res.locals.memberInfo = memberInfo;
