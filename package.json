@@ -2,7 +2,7 @@
   "name": "fitconnect",
   "version": "1.0.0",
   "description": "FitConnect, a web app for finding and connecting with fitness buddies & gym partners",
-  "main": "./client/src/index.js",
+  "main": "server/server.js",
   "scripts": {
     "start": "NODE_ENV=production nodemon ./client/src/index.html",
     "build": "NODE_ENV=development webpack",
