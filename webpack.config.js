@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: './client/src/index.js',
+    entry: './client/src/index.html',
     output: {
         path: path.resolve(__dirname, 'build'),
         publicPath: '/',
@@ -27,14 +27,19 @@ module.exports = {
                 exclude: /(node_modules)/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
             },
+            {
+                test: /\.html$/,
+                exclude: /(node_modules)/,
+                use: ['file-loader', 'html-loader'],
+            },
         ],
     },
     devServer: {
         host: 'localhost',
         port: 8080,
         static: {
-            directory: path.resolve(__dirname, './build'),
-            publicPath: '/build',
+            directory: path.resolve(__dirname, 'build'),
+            // publicPath: '/client',
         },
         // enable HMR on the devServer
         hot: true,
