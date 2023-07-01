@@ -11,7 +11,7 @@ userRouter - router to handle requests that involve getting/posting user related
 */
 
 const apiRouter = require('./routes/api');
-const userRouter = require('./routes/member');
+const memberRouter = require('./routes/member');
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 // user route handling
-app.use('/api/user', userRouter, (req, res) => {
+app.use('/api/user', memberRouter, (req, res) => {
   return res.sendStatus(200);
 });
 

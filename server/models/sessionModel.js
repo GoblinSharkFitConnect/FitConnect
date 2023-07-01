@@ -1,4 +1,4 @@
-const db = require('../db/dbConnect');
+// const db = require('../db/dbConnect');
 
 class Session {
   constructor(ssid, userId) {

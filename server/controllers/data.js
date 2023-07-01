@@ -1,5 +1,5 @@
 const path = require('path');
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 
 const dataController = {};
 

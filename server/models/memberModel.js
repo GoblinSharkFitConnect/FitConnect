@@ -1,4 +1,4 @@
-const db = require('../db/dbConnect');
+// const db = require('../db/dbConnect');
 const bcrypt = require('bcryptjs');
 
 class Member {
