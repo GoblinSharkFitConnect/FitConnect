@@ -11,7 +11,7 @@ userRouter - router to handle requests that involve getting/posting user related
 */
 
 const apiRouter = require('./routes/api');
-const userRouter = require('./routes/user');
+const userRouter = require('./routes/member');
 
 const app = express();
 

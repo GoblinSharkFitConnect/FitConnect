@@ -7,7 +7,7 @@ class Session {
   }
   // method to create the sessions table in the DB
   static async createTable() {
-    const query = `CREATE TABLE IF NOT EXISTS sessions (
+    const query = `CREATE TABLE IF NOT EXISTS session (
         ssid VARCHAR(255) PRIMARY KEY,
         user_id INT,
         created_at TIMESTAMPTZ DEFAULT NOW(),
@@ -22,7 +22,7 @@ class Session {
   // starting the session when the user logs in or signs up
   async startSession() {
     const query = {
-      text: 'INSERT INTO sessions(ssid, user_id) VALUES ($1, $2) RETURNING *',
+      text: 'INSERT INTO session(ssid, user_id) VALUES ($1, $2) RETURNING *',
       values: [this.ssid, this.userId],
     };
 
@@ -38,7 +38,7 @@ class Session {
   // Deleting sessions when the user logs out
   static async deleteSession(userId) {
     const query = {
-      text: 'DELETE FROM sessons WHERE member_id = $1',
+      text: 'DELETE FROM session WHERE member_id = $1',
       values: [userId],
     };
 
@@ -61,7 +61,7 @@ class Session {
     const query = {
       text: `
         SELECT m.* FROM member m
-        LEFT OUTER JOIN sessions s ON s.user_id = u.id
+        LEFT OUTER JOIN session s ON s.user_id = ug.id
         WHERE s.ssid = $1;
       `,
       values: [ssid],
@@ -72,7 +72,7 @@ class Session {
       if (!response.rows[0]) {
         console.error('No session was found in the DB');
       }
-      // return the found session i nteh database
+      // return the found session from the database
       return response.rows[0];
     } catch (error) {
       console.error(error);
