@@ -20,10 +20,10 @@ class Session {
     }
   }
   // starting the session when the user logs in or signs up
-  async startSession() {
+  static async startSession(ssid, userId) {
     const query = {
       text: 'INSERT INTO session(ssid, user_id) VALUES ($1, $2) RETURNING *',
-      values: [this.ssid, this.userId],
+      values: [ssid, userId],
     };
 
     try {

@@ -37,7 +37,6 @@ class Member {
 
     try {
       const result = await db.query(query);
-      console.log('RESULTS', result.rows[0]);
       return result.rows[0] || null;
     } catch (error) {
       console.error('Error finding user:', error);
@@ -45,8 +44,9 @@ class Member {
     }
   }
 
-  async comparePassword(candidatePassword) {
-    return bcrypt.compare(candidatePassword, this.password);
+  static async comparePassword(candidatePassword, password) {
+    console.log(candidatePassword, password);
+    return bcrypt.compare(candidatePassword, password);
   }
 }
 
