@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=production nodemon ./client/src/index.html",
     "build": "NODE_ENV=development webpack",
-    "dev": "NODE_ENV=development nodemon ./client/src/index.html & NODE_ENV=development webpack-dev-server --open",
+    "dev": "NODE_ENV=development nodemon ./server/server.js & NODE_ENV=development webpack-dev-server --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "nodemonConfig": {
