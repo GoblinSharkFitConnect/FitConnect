@@ -7,7 +7,7 @@ class Workout {
     this.day = day;
   }
 
-  // starting the session when the user logs in or signs up
+  // creating the workout
   async createWorkout() {
     const query = {
       text: 'INSERT INTO workout(name, goal, day) VALUES ($1, $2, $3) RETURNING *',
@@ -23,47 +23,50 @@ class Workout {
       return error;
     }
   }
-  // Deleting sessions when the user logs out
+  // Deleting a workout
   static async deleteWorkout(id) {
-    // const query = {
-    //   text: 'DELETE FROM session WHERE member_id = $1',
-    //   values: [userId],
-    // };
+    if (!id) {
+      return null;
+    }
+    const query = {
+      text: 'DELETE FROM workout WHERE id = $1',
+      values: [id],
+    };
+    try {
+      const result = await db.query(query);
+      console.log('Delete workout results', result.rows[0]);
+      return result.rows[0] || null;
+    } catch (error) {
+      console.error('Error deleting workout:', error);
+      return error;
+    }
+  }
+  // updating the workout in the DB
+  static async updateWorkout(id, name, goal, day) {
+    if (!id) {
+      console.error('Error trying to verify session, no ssid');
+      return null;
+    }
+    // // execute a table join on members and SSID to return the member information
+    const query = {
+      text: `
+        SELECT m.* FROM member m
+        LEFT OUTER JOIN session s ON s.user_id = ug.id
+        WHERE s.ssid = $1;
+      `,
+      values: [ssid],
+    };
     // try {
-    //   const result = await db.query(query);
-    //   console.log('Delete session results', result.rows[0]);
-    //   return result.rows[0] || null;
+    //   const response = await db.query(query);
+    //   if (!response.rows[0]) {
+    //     console.error('No session was found in the DB');
+    //   }
+    //   // return the found session from the database
+    //   return response.rows[0];
     // } catch (error) {
-    //   console.error('Error finding session:', error);
+    //   console.error(error);
     //   return error;
     // }
-  }
-  // verifies the session given the SSID
-  static async updateWorkout(id) {
-    //   if (!ssid) {
-    //     console.error('Error trying to verify session, no ssid');
-    //     return null;
-    //   }
-    //   // execute a table join on members and SSID to return the member information
-    //   const query = {
-    //     text: `
-    //       SELECT m.* FROM member m
-    //       LEFT OUTER JOIN session s ON s.user_id = ug.id
-    //       WHERE s.ssid = $1;
-    //     `,
-    //     values: [ssid],
-    //   };
-    //   try {
-    //     const response = await db.query(query);
-    //     if (!response.rows[0]) {
-    //       console.error('No session was found in the DB');
-    //     }
-    //     // return the found session from the database
-    //     return response.rows[0];
-    //   } catch (error) {
-    //     console.error(error);
-    //     return error;
-    //   }
   }
 }
 
