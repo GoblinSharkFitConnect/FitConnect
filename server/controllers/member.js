@@ -39,7 +39,6 @@ memberController.createMember = async (req, res, next) => {
   }
   // Save the user to the database
   try {
-    //TODO: IMPORT USER MODEL ONCE JEREMY FINISHES
     // creates the user through the user model
     const member = new Member(username, password, firstName, lastName);
     // member.save will return the user's info (need to get the serial'd ID) from the DB save
@@ -58,9 +57,39 @@ memberController.createMember = async (req, res, next) => {
   }
 };
 
-memberController.checkCredentials = (req, res, next) => {
-  //TODO: Need to do this still
-  return next();
+memberController.checkCredentials = async (req, res, next) => {
+  let {username, password} = req.body;
+  // need to get the user ID of the user if one exists in the DB
+  try {
+    const member = await Member.findByUsername(username);
+    if (member) {
+      const passwordCheck = await Member.comparePassword(
+        password,
+        member.password
+      );
+      if (passwordCheck) {
+        console.log('Password matches');
+        // set the ID to the locals so we can check for an active session in middleware
+        res.locals.userId = member.id;
+        return next();
+      } else {
+        console.log('Password was incorrect');
+        return next({
+          log: 'Failed credentials',
+          status: 400,
+          message: {err: 'Failed matching user credentials'},
+        });
+      }
+    }
+  } catch (error) {
+    return next({
+      log: error,
+      status: 400,
+      message: {
+        err: 'Error in checkCredentials method of the memberController',
+      },
+    });
+  }
 };
 
 memberController.updateUser = (req, res, next) => {
