@@ -24,14 +24,14 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <h1>Login</h1>
+        <>
+            <h1>Log In</h1>
             <form onSubmit={handleSubmit}>
                 <input name="username" type="text" placeholder="Username"></input>
                 <input name="password" type="password" placeholder="Password"></input>
-                <input type='submit' value="Log In"></input>
+                <input type="submit" value="Log In"></input>
             </form>
-        </div>
+        </>
     )
 };
 

@@ -22,20 +22,20 @@ const Signup = () => {
                 if (res.ok) {
                     navigate('/login');
                 }
-            })
-    }
+            });
+    };
 
     return (
-        <div>
-            <h1>Signup</h1>
+        <>
+            <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
                 <input name="firstName" type="text" placeholder="First Name"></input>
                 <input name="lastName" type="text" placeholder="Last Name"></input>
                 <input name="username" type="text" placeholder="username"></input>
                 <input name="password" type="password" placeholder="password"></input>
-                <input type="submit" value="create user"></input>
+                <input type="submit" value="Sign Up"></input>
             </form>
-        </div>
+        </>
     )
 };
 
