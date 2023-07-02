@@ -3,7 +3,7 @@ const query = {}
 // CREATE TABLE member(id SERIAL PRIMARY KEY, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL);
 // CREATE TABLE workout(id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL, goal VARCHAR(255), complete BOOLEAN NOT NULL DEFAULT FALSE, day DATE DEFAULT CURRENT_DATE);
 // CREATE TABLE exercise(id SERIAL PRIMARY KEY, name VARCHAR(255) NOT NULL, intervals INT, sets INT, reps INT, rest INT);
-// CREATE TABLE session(ssid VARCHAR(255) PRIMARY KEY, member_id INT, created_at DATE DEFAULT CURRENT_DATE, FOREIGN KEY(member_id) REFERENCES member(id) ON DELETE CASCADE);
+// CREATE TABLE session(ssid VARCHAR(255) PRIMARY KEY, member_id INT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(member_id) REFERENCES member(id) ON DELETE CASCADE);
 
 // join tables:
 // CREATE TABLE member_workout(member_id INT REFERENCES member(id) ON DELETE CASCADE, workout_id INT REFERENCES workout(id) ON DELETE CASCADE, PRIMARY KEY(member_id, workout_id));
@@ -42,9 +42,13 @@ query.updateExerciseReps = 'UPDATE exercise SET reps = $1 WHERE id = $2'
 query.updateExerciseRest = 'UPDATE exercise SET rest = $1 WHERE id = $2'
 
 //delete workout
-query.deleteWorkout = 'DELETE FROM workout WHERE id = $1'
+query.deleteWorkout = 'DELETE FROM workout WHERE id = $1';
+//delete member_workout
+query.deleteMemberWorkout = 'DELETE FROM member_workout WHERE member_id = $1 AND workout_id = $2';
 
 //delete exercise
-query.deleteExercise = 'DELETE FROM exercise WHERE id = $1'
+query.deleteExercise = 'DELETE FROM exercise WHERE id = $1';
+//delete workout_exercise
+query.deleteWorkoutExercise = 'DELETE FROM workout_exercise WHERE workout_id = $1 AND exercise_id = $2';
 
-export default query
+module.exports = query
