@@ -17,6 +17,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { render } from 'react-dom';
 import App from './App.jsx';
 
+// uncomment so that webpack can bundle styles
+import styles from './styles.css';
+
 render(
   <BrowserRouter>
     <App />

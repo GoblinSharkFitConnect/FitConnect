@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&family=Source+Sans+3&display=swap");
+
+nav {
+  /* position: fixed;
+  top: 0; */
+  width: 100%;
+  height: 50px;
+  background-color: #a0d3f7;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 16px;
+  padding: 10px 0;
+  box-shadow: 0 2px 5px 0 rgba(0, 157, 255, 0.875);
+}
+.navbarbutton {
+  margin: 0.75rem;
+}
+
+.navbarbutton a {
+  color: black;
+  text-decoration: none;
+}
+
+body {
+  margin: 2rem;
+  line-height: 1.3;
+  font-family: "Source Sans 3";
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background: rgba(183, 236, 255, 0.915);
+  color: #283331;
+}
+
+h1 {
+  font-family: "Open Sans";
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+}
+
+a,
+p,
+li,
+button,
+div {
+  font-size: 1.4rem;
+}
+
+input {
+  margin-right: 0.3rem;
+  border-radius: 0;
+  background: rgba(207, 245, 255, 0.915);
+}
