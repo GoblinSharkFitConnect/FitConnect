@@ -1,15 +1,15 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: "./client/src/index.js",
+  entry: './client/src/index.js',
   output: {
-    path: path.resolve(__dirname, "build"),
-    publicPath: "/",
-    filename: "bundle.js",
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
+    filename: 'bundle.js',
   },
-  devtool: "eval-source-map",
+  devtool: 'eval-source-map',
   mode: process.env.NODE_ENV,
   module: {
     rules: [
@@ -17,25 +17,25 @@ module.exports = {
         test: /\.jsx?/,
         exclude: /(node_modules)/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
       },
       {
         test: /\.s?css/,
         exclude: /(node_modules)/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
   },
   devServer: {
-    host: "localhost",
+    host: 'localhost',
     port: 8080,
     static: {
-      directory: path.resolve(__dirname, "./build"),
-      publicPath: "/build",
+      directory: path.resolve(__dirname, './build'),
+      publicPath: '/build',
     },
     // enable HMR on the devServer
     hot: true,
@@ -44,16 +44,19 @@ module.exports = {
     // for eliminating CORS error
     // headers: { 'Access-Control-Allow-Origin': '*' },
     proxy: {
-      "/api/**": {
-        target: "http://localhost:3000/",
+      '/api/**': {
+        target: 'http://localhost:3000/',
         secure: false,
       },
     },
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./client/src/index.html",
+      template: './client/src/index.html',
     }),
     new MiniCssExtractPlugin(),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 };

@@ -23,10 +23,8 @@ User Data in DB:
 */
 
 memberController.createMember = async (req, res, next) => {
-  //TODO: Double check key/values being sent on body from frontend
-  const {username, password, firstName, lastName} = req.body;
-
-  if (!username || !password || !firstName || !lastName) {
+  const {username, password, firstname, lastname} = req.body;
+  if (!username || !password || !firstname || !lastname) {
     //TODO: Is this supposed to return an error w/ 400
     //TODO: or maybe res.send something back saying invalid credentials?
     return next({
@@ -40,7 +38,7 @@ memberController.createMember = async (req, res, next) => {
   // Save the user to the database
   try {
     // creates the user through the user model
-    const member = new Member(username, password, firstName, lastName);
+    const member = new Member(username, password, firstname, lastname);
     // member.save will return the user's info (need to get the serial'd ID) from the DB save
     const memberInfo = await member.save();
     // set the userInfo to the res.locals to pass to other middleware (for session stuff)
@@ -62,6 +60,7 @@ memberController.checkCredentials = async (req, res, next) => {
   // need to get the user ID of the user if one exists in the DB
   try {
     const member = await Member.findByUsername(username);
+    console.log(member);
     if (member) {
       const passwordCheck = await Member.comparePassword(
         password,
@@ -80,6 +79,12 @@ memberController.checkCredentials = async (req, res, next) => {
           message: {err: 'Failed matching user credentials'},
         });
       }
+    } else {
+      return next({
+        log: 'Failed credentials',
+        status: 400,
+        message: {err: 'Failed matching user credentials'},
+      });
     }
   } catch (error) {
     return next({

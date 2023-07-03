@@ -1,17 +1,20 @@
 const db = require('../configs/db.config');
+const dbQuery = require('../queries/db.query');
 
 class Exercise {
-  constructor(name, goal, day) {
+  constructor(name, intervals, sets, reps, rest) {
     this.name = name;
-    this.goal = goal;
-    this.day = day;
+    this.intervals = 0;
+    this.sets = sets;
+    this.reps = reps;
+    this.rest = rest;
   }
 
   // creating the Exercise
   async createExercise() {
     const query = {
-      text: 'INSERT INTO Exercise(name, goal, day) VALUES ($1, $2, $3) RETURNING *',
-      values: [this.name, , this.goal, this.day],
+      text: dbQuery.createExercise,
+      values: [this.name, this.intervals, this.sets, this.reps, this.rest],
     };
 
     try {
@@ -29,18 +32,34 @@ class Exercise {
       return null;
     }
     const query = {
-      text: 'DELETE FROM Exercise WHERE id = $1',
+      text: 'DELETE FROM exercise WHERE id = $1',
       values: [id],
     };
     try {
       const result = await db.query(query);
-      console.log('Delete Exercise results', result.rows[0]);
+      console.log('Delete exercise results', result.rows[0]);
       return result.rows[0] || null;
     } catch (error) {
       console.error('Error deleting Exercise:', error);
       return error;
     }
   }
+
+  // getting the exercise from the DB
+  static async getExercise(workoutId) {
+    try {
+      const query = {
+        text: dbQuery.getAllExercises,
+        values: [workoutId],
+      };
+      const response = await db.query(query);
+      return response.rows;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
   // updating the Exercise in the DB
   static async updateExercise(id, name, goal, day) {
     // need to figure out how the exercise form is submitted here
