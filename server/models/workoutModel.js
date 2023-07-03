@@ -1,19 +1,21 @@
 const db = require('../configs/db.config');
 
+const dbQuery = require('../queries/db.query');
 class Workout {
-  constructor(name, goal, day) {
+  constructor(name, goal, complete, day) {
     this.name = name;
     this.goal = goal;
     this.day = day;
+    this.complete = complete;
   }
 
   // creating the workout
   async createWorkout() {
     const query = {
-      text: 'INSERT INTO workout(name, goal, day) VALUES ($1, $2, $3) RETURNING *',
-      values: [this.name, , this.goal, this.day],
+      text: dbQuery.createWorkout,
+      values: [this.name, this.goal, this.day, this.complete],
     };
-
+    console.log('Query for creating a workout: ', query);
     try {
       const response = await db.query(query);
       console.log('Workout created successfully');
@@ -23,13 +25,13 @@ class Workout {
       return error;
     }
   }
-  // Deleting a workout
+  // Deleting a workout based on the ID of the workout
   static async deleteWorkout(id) {
     if (!id) {
       return null;
     }
     const query = {
-      text: 'DELETE FROM workout WHERE id = $1',
+      text: dbQuery.deleteWorkout,
       values: [id],
     };
     try {
@@ -44,6 +46,7 @@ class Workout {
   // updating the workout in the DB
   static async updateWorkout(id, name, goal, day) {
     // need to figure out how the form submission works here
+    return next();
     // if (!id) {
     //   console.error('Error trying to verify session, no ssid');
     //   return null;
