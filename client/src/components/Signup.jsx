@@ -27,7 +27,7 @@ const Signup = () => {
 
     return (
         <>
-            <h1>Sign Up</h1>
+            <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
                 <input name="firstName" type="text" placeholder="First Name"></input>
                 <input name="lastName" type="text" placeholder="Last Name"></input>
