@@ -21,20 +21,28 @@ query.createSession =
 
 // create join table entries
 query.createMemberWorkout =
-  'INSERT INTO member_workout (member_id, workout_id) VALUES ($1, (SELECT id FROM workout ORDER BY id DESC LIMIT 1))';
+  'INSERT INTO member_workout (member_id, workout_id) VALUES ($1, $2)';
 query.createWorkoutExercise =
-  'INSERT INTO workout_exercise (workout_id, exercise_id) VALUES ($1, (SELECT id FROM exercise ORDER BY id DESC LIMIT 1))';
+  'INSERT INTO workout_exercise (workout_id, exercise_id) VALUES ($1, $2)';
 
-// get member + member session
+// member + member session
 query.getMember = 'SELECT * FROM member WHERE username = $1';
 query.getMemberSession =
-  'SELECT member.username, member.firstname, member.lastname FROM member JOIN session ON member.id = session.member_id';
+  'SELECT member.id member.username, member.firstname, member.lastname FROM member JOIN session ON member.id = session.member_id';
+query.verifySession =
+  'SELECT member.* FROM member LEFT OUTER JOIN session ON session.member_id = member.id WHERE session.ssid = $1';
+query.getMemberIDfromSession = 'SELECT member_id FROM session WHERE ssid = $1';
+/*
 
+*/
 // get all workouts for 1 user
 query.getAllWorkouts =
   'SELECT workout.* FROM workout INNER JOIN member_workout ON workout.id = member_workout.workout_id INNER JOIN member ON member.id = member_workout.member_id WHERE member.id = $1';
 query.getAllExercises =
-  'SELECT exercise.* FROM exercise INNER JOIN workout_exercise ON exercise.id = workout_exercise.exercise_id INNER JOIN workout ON workout.id = workout_exercuse.workout_id WHERE workout.id = $1';
+  'SELECT exercise.* FROM exercise INNER JOIN workout_exercise ON exercise.id = workout_exercise.exercise_id INNER JOIN workout ON workout.id = workout_exercise.workout_id WHERE workout.id = $1';
+// get exercise for one workout for one member
+query.getExercisesByWorkout =
+  'SELECT exercise.* FROM exercise JOIN workout_exercise ON exercise.id = workout_exercise.exercise_id JOIN member_workout ON workout_exercise.workout_id = member_workout.workout_id WHERE member_workout.member_id = $1 AND member_workout.workout_id = $2;';
 
 // update workouts
 query.updateWorkout =

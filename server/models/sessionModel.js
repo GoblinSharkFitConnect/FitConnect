@@ -1,28 +1,16 @@
 const db = require('../configs/db.config');
+const dbQuery = require('../queries/db.query');
 
 class Session {
   constructor(ssid, userId) {
     this.ssid = ssid;
     this.userId = userId;
   }
-  // method to create the sessions table in the DB
-  static async createTable() {
-    const query = `CREATE TABLE IF NOT EXISTS session (
-        ssid VARCHAR(255) PRIMARY KEY,
-        user_id INT,
-        created_at TIMESTAMPTZ DEFAULT NOW(),
-        FOREIGN KEY (user_id) REFERENCES member (id) ON DELETE CASCADE
-      );`;
-    try {
-      await db.query(query);
-    } catch (error) {
-      console.error('Error creating the sessions table');
-    }
-  }
+
   // starting the session when the user logs in or signs up
   static async startSession(ssid, userId) {
     const query = {
-      text: 'INSERT INTO session(ssid, user_id) VALUES ($1, $2) RETURNING *',
+      text: 'INSERT INTO session(ssid, member_id) VALUES ($1, $2) RETURNING *',
       values: [ssid, userId],
     };
 
@@ -61,7 +49,7 @@ class Session {
     const query = {
       text: `
         SELECT m.* FROM member m
-        LEFT OUTER JOIN session s ON s.user_id = ug.id
+        LEFT OUTER JOIN session s ON s.member_id = m.id
         WHERE s.ssid = $1;
       `,
       values: [ssid],

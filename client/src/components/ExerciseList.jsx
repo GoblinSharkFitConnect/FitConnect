@@ -1,8 +1,8 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import Exercise from "./Exercise";
-import WorkoutForm from "./WorkoutForm";
+import React from 'react';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router';
+import Exercise from './Exercise.jsx';
+import WorkoutForm from './WorkoutForm.jsx';
 
 const ExerciseList = () => {
   const [exercises, setExercises] = useState([]);
@@ -11,16 +11,16 @@ const ExerciseList = () => {
   useEffect(() => {
     // There should be a string literal specifying exercise ID.
     // Not sure where I should be getting the ID from, though.
-    fetch("/api/exercise", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
+    fetch('/api/exercise', {
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
     })
       .then((res) => res.json())
       .then((data) => {
         setExercises(data);
       })
       .catch((err) =>
-        console.log("ExerciseList.jsx ERROR: fetch for exercise failed ", err)
+        console.log('ExerciseList.jsx ERROR: fetch for exercise failed ', err)
       );
   }, [exercises]);
 
@@ -31,11 +31,11 @@ const ExerciseList = () => {
   const exerciseArr = new Array(numberOfExercises);
   // populate an array of Exercise objects, each containing an Exercise
   for (let i = 0; i < numberOfExercises; i++) {
-    // um, I'm feeling like data[i] is the wrong way to access the data for one exercise
+    // um, I'm feeling like data={data[i]} is the wrong way to access the data for one exercise
     // exerciseArr[i] = <Exercise data={data[i]} />;
     // here is some dummy data
     const data = {
-      name: "Squats",
+      name: 'Squats',
       sets: 3,
       reps: 10,
       rest: 5,
@@ -46,7 +46,7 @@ const ExerciseList = () => {
 
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/createworkout/form");
+    navigate('/createworkout/form');
   };
   return (
     <>
