@@ -3,16 +3,15 @@ import { useNavigate } from "react-router";
 
 const ExerciseForm = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState('')
+  const [sets, setSets] = useState(0)
+  const [reps, setReps] = useState(0)
+  const [rest, setRest] = useState(0)
+  const [intervals, setIntervals] = useState(0)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const obj = {
-      name: e.target.name.value,
-      sets: e.target.sets.value,
-      reps: e.target.reps.value,
-      rest: e.target.rest.value,
-      intervals: e.target.intervals.value,
-    };
+    const obj = { name, sets, reps, rest, intervals };
     fetch("/api/exercise", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -28,19 +27,11 @@ const ExerciseForm = () => {
     <>
       <h2>Create Exercise</h2>
       <form onSubmit={handleSubmit}>
-        <input name="name" type="text" placeholder="Exercise Name"></input>
-        <input name="sets" type="number" placeholder="Number of Sets"></input>
-        <input
-          name="reps"
-          type="number"
-          placeholder="Number of Reps per Set"
-        ></input>
-        <input name="rest" type="number" placeholder="Minutes of Rest"></input>
-        <input
-          name="intervals"
-          type="number"
-          placeholder="Number of Intervals/Time"
-        ></input>
+        <input onChange={e => setName(e.target.value)} name="name" type="text" placeholder="Exercise Name"></input>
+        <input onChange={e => setSets(e.target.value)} name="sets" type="number" placeholder="Number of Sets"></input>
+        <input onChange={e => setReps(e.target.value)} name="reps" type="number" placeholder="Number of Reps per Set"></input>
+        <input onChange={e => setRest(e.target.value)} name="rest" type="number" placeholder="Minutes of Rest"></input>
+        <input onChange={e => setIntervals(e.target.value)} name="intervals" type="number" placeholder="Number of Intervals/Time"></input>
         <input type="submit" value="Done"></input>
       </form>
     </>

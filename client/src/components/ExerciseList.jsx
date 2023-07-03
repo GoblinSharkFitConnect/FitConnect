@@ -5,7 +5,7 @@ import Exercise from "./Exercise";
 import WorkoutForm from "./WorkoutForm";
 
 const ExerciseList = () => {
-  const { exercises, setExercises } = useState([]);
+  const [exercises, setExercises] = useState([]);
 
   // useEffect hook: fetch the array of exercises for this workout
   useEffect(() => {

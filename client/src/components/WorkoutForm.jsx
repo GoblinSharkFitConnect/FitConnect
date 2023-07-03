@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
 const WorkoutForm = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [goal, setGoal] = useState('');
+  const [complete, setComplete] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const obj = {
-      name: e.target.name.value,
-      goals: e.target.goals.value,
-      completed: e.target.completed.value,
+      name,
+      goal,
+      complete,
       day: e.target.day.value,
     };
     fetch("/api/workout", {
@@ -18,20 +21,17 @@ const WorkoutForm = () => {
       body: JSON.stringify(obj),
     }).then((res) => {
       if (res.ok) {
-        navigate("/myworkouts");
+        navigate("/dashboard");
       }
     });
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="name" type="text" placeholder="Workout Name"></input>
-      <input name="goals" type="text" placeholder="Goals"></input>
-      <input
-        name="completed"
-        type="boolean"
-        placeholder="Completed? (True/False)"
-      ></input>
+      <input onChange={e => setName(e.target.value)} name="name" type="text" placeholder="Workout Name"></input>
+      <input onChange={e => setGoal(e.target.value)} name="goals" type="text" placeholder="Goals"></input>
+      <label htmlFor="completed">completed: </label>
+      <input onChange={e => setComplete((prevComplete) => !prevComplete)} name="completed" type="checkbox"></input>
       <input name="day" type="date" placeholder="Date"></input>
       <input type="submit" value="Done"></input>
     </form>
