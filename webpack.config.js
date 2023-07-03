@@ -9,6 +9,7 @@ module.exports = {
     publicPath: '/',
     filename: 'bundle.js',
   },
+  devtool: 'eval-source-map',
   mode: process.env.NODE_ENV,
   module: {
     rules: [
@@ -55,4 +56,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
   ],
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
 };

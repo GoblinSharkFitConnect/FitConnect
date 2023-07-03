@@ -24,7 +24,6 @@ router.post(
   cookieController.setSSIDCookie,
   sessionController.startSession,
   (req, res, next) => {
-    //TODO: Need to do this still
     return res.sendStatus(200);
   }
 );
@@ -39,7 +38,6 @@ router.delete(
   sessionController.deleteSession,
   cookieController.deleteSSIDCookie,
   (req, res, next) => {
-    //TODO: Need to do this still
     res.sendStatus(200);
   }
 );
@@ -72,14 +70,12 @@ router.post(
 
 // route to get information about a workout
 router.get('/workout', dataController.getWorkout, (req, res, next) => {
-  //TODO: Need to do this still
-  res.sendStatus(200);
+  res.status(200).json(res.locals);
 });
 
 // route to get information about an exercise
 router.get('/exercise', dataController.getExercise, (req, res, next) => {
-  //TODO: Need to do this still
-  res.sendStatus(200);
+  res.status(200).json(res.locals);
 });
 
 /*
@@ -93,13 +89,13 @@ router.get('/exercise', dataController.getExercise, (req, res, next) => {
 // route to create a workout
 router.post('/workout', dataController.createWorkout, (req, res, next) => {
   //TODO: Need to do this still
-  res.sendStatus(200);
+  res.sendStatus(201);
 });
 
 // route to create an exercise
 router.post('/exercise', dataController.createExercise, (req, res, next) => {
   //TODO: Need to do this still
-  res.sendStatus(200);
+  res.sendStatus(201);
 });
 
 /*
