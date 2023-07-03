@@ -1,4 +1,5 @@
 const path = require('path');
+const Workout = require('../models/workoutModel');
 
 const dataController = {};
 
@@ -27,9 +28,31 @@ dataController.getExercise = (req, res, next) => {
 };
 
 // method to create a workout in the database
-dataController.createWorkout = (req, res, next) => {
-  //TODO: Need to do this still
-  return next();
+dataController.createWorkout = async (req, res, next) => {
+  const {name, goal, complete, day} = req.body;
+  console.log('Create workout called', req.body);
+  if (!name || !goal || !day || !req.body.hasOwnProperty('complete')) {
+    return next({
+      log: 'Missing field for the create workout',
+      status: 400,
+      message: {err: 'Error in the createWorkout method of the dataController'},
+    });
+  }
+  console.log('Creating a new workout..');
+  const newWorkout = new Workout(name, goal, complete, day);
+  try {
+    newWorkout.createWorkout();
+    console.log('New workout created succesfully: ', newWorkout);
+    return next();
+  } catch (error) {
+    return next({
+      log: error,
+      status: 400,
+      message: {
+        err: 'Error in the createWorkout method of the dataController trying to create a workout',
+      },
+    });
+  }
 };
 
 // method to create an exercise in the database
