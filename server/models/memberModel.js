@@ -1,5 +1,6 @@
 const db = require('../configs/db.config');
 const bcrypt = require('bcryptjs');
+const qs = require('../queries/db.query')
 
 class Member {
   constructor(username, password, firstName, lastName) {
@@ -14,7 +15,8 @@ class Member {
     const hashedPassword = await bcrypt.hash(this.password, 10);
     // insert the username, password (hashed), first name and last name into the DB
     const query = {
-      text: 'INSERT INTO member(username, password, firstname, lastname) VALUES ($1, $2, $3, $4) RETURNING *',
+      // 'INSERT INTO member(username, password, firstname, lastname) VALUES ($1, $2, $3, $4) RETURNING *',
+      text: qs.createMember,
       values: [this.username, hashedPassword, this.firstName, this.lastName],
     };
 
@@ -31,12 +33,14 @@ class Member {
 
   static async findByUsername(username) {
     const query = {
-      text: 'SELECT * FROM member WHERE username = $1',
+      // 'SELECT * FROM member WHERE username = $1',
+      text: qs.getMember,
       values: [username],
     };
 
     try {
       const result = await db.query(query);
+      console.log('RESULTS', result.rows[0]);
       return result.rows[0] || null;
     } catch (error) {
       console.error('Error finding user:', error);
@@ -44,9 +48,8 @@ class Member {
     }
   }
 
-  static async comparePassword(candidatePassword, password) {
-    console.log(candidatePassword, password);
-    return bcrypt.compare(candidatePassword, password);
+  async comparePassword(candidatePassword) {
+    return bcrypt.compare(candidatePassword, this.password);
   }
 }
 

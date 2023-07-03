@@ -11,8 +11,8 @@ const query = {}
 
 // create table entries
 query.createMember = 'INSERT INTO member(username, password, firstname, lastname) VALUES($1, $2, $3, $4) RETURNING *';
-query.createWorkout = 'INSERT INTO workout(name, goal) VALUES ($1, $2) RETURNING id';
-query.createExercise = 'INSERT INTO exercise(name, intervals, sets, reps, rest) VALUES ($1, $2, $3, $4, $5) RETURNING id';
+query.createWorkout = 'INSERT INTO workout(name, goal, day) VALUES ($1, $2, $3) RETURNING *';
+query.createExercise = 'INSERT INTO exercise(name, intervals, sets, reps, rest) VALUES ($1, $2, $3, $4, $5) RETURNING *';
 query.createSession = 'INSERT INTO session(ssid, member_id) VALUES ($1, $2) RETURNING *';
 
 // create join table entries
@@ -21,7 +21,8 @@ query.createWorkoutExercise = 'INSERT INTO workout_exercise (workout_id, exercis
 
 // get member + member session
 query.getMember = 'SELECT * FROM member WHERE username = $1';
-query.getMemberSession = 'SELECT member.username, member.firstname, member.lastname FROM member JOIN session ON member.id = session.member_id';
+query.getMemberSession = 'SELECT member.* FROM member JOIN session ON member.id = session.member_id';
+query.verifySession = 'SELECT member.* FROM member LEFT OUTER JOIN session ON session.member_id = member.id WHERE session.ssid = $1';
 
 // get all workouts for 1 user
 query.getAllWorkouts = 'SELECT workout.* FROM workout INNER JOIN member_workout ON workout.id = member_workout.workout_id INNER JOIN member ON member.id = member_workout.member_id WHERE member.id = $1';
@@ -45,7 +46,8 @@ query.updateExerciseRest = 'UPDATE exercise SET rest = $1 WHERE id = $2'
 query.deleteWorkout = 'DELETE FROM workout WHERE id = $1';
 //delete member_workout
 query.deleteMemberWorkout = 'DELETE FROM member_workout WHERE member_id = $1 AND workout_id = $2';
-
+//delete session
+query.deleteSession = 'DELETE FROM session WHERE member_id = $1'
 //delete exercise
 query.deleteExercise = 'DELETE FROM exercise WHERE id = $1';
 //delete workout_exercise

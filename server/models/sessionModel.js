@@ -1,4 +1,5 @@
 const db = require('../configs/db.config');
+const qs = require('../queries/db.query')
 
 class Session {
   constructor(ssid, userId) {
@@ -22,7 +23,8 @@ class Session {
   // starting the session when the user logs in or signs up
   static async startSession(ssid, userId) {
     const query = {
-      text: 'INSERT INTO session(ssid, user_id) VALUES ($1, $2) RETURNING *',
+      // 'INSERT INTO session(ssid, user_id) VALUES ($1, $2) RETURNING *',
+      text: qs.createSession,
       values: [ssid, userId],
     };
 
@@ -38,7 +40,8 @@ class Session {
   // Deleting sessions when the user logs out
   static async deleteSession(userId) {
     const query = {
-      text: 'DELETE FROM session WHERE member_id = $1',
+      // 'DELETE FROM session WHERE member_id = $1',
+      text: qs.deleteSession,
       values: [userId],
     };
 
@@ -59,11 +62,8 @@ class Session {
     }
     // execute a table join on members and SSID to return the member information
     const query = {
-      text: `
-        SELECT m.* FROM member m
-        LEFT OUTER JOIN session s ON s.user_id = ug.id
-        WHERE s.ssid = $1;
-      `,
+      // `SELECT m.* FROM member m LEFT OUTER JOIN session s ON s.user_id = ug.id WHERE s.ssid = $1;`,
+      text: qs.verifySession,
       values: [ssid],
     };
 
