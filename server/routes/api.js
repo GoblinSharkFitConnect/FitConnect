@@ -93,13 +93,13 @@ router.get('/exercise', dataController.getExercise, (req, res, next) => {
 // route to create a workout
 router.post('/workout', dataController.createWorkout, (req, res, next) => {
   //TODO: Need to do this still
-  res.sendStatus(200);
+  res.sendStatus(201);
 });
 
 // route to create an exercise
 router.post('/exercise', dataController.createExercise, (req, res, next) => {
   //TODO: Need to do this still
-  res.sendStatus(200);
+  res.sendStatus(201);
 });
 
 /*
