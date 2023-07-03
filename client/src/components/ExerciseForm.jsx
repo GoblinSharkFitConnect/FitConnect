@@ -27,11 +27,11 @@ const ExerciseForm = () => {
     <>
       <h2>Create Exercise</h2>
       <form onSubmit={handleSubmit}>
-        <input onChange={e => setName(e.target.value)} name="name" type="text" placeholder="Exercise Name"></input>
-        <input onChange={e => setSets(e.target.value)} name="sets" type="number" placeholder="Number of Sets"></input>
-        <input onChange={e => setReps(e.target.value)} name="reps" type="number" placeholder="Number of Reps per Set"></input>
-        <input onChange={e => setRest(e.target.value)} name="rest" type="number" placeholder="Minutes of Rest"></input>
-        <input onChange={e => setIntervals(e.target.value)} name="intervals" type="number" placeholder="Number of Intervals/Time"></input>
+        <input onChange={e => setName(e.target.value)} value={name} name="name" type="text" placeholder="Exercise Name"></input>
+        <input onChange={e => setSets(e.target.value)} value={sets} name="sets" type="number" placeholder="Number of Sets"></input>
+        <input onChange={e => setReps(e.target.value)} value={reps} name="reps" type="number" placeholder="Number of Reps per Set"></input>
+        <input onChange={e => setRest(e.target.value)} value={rest} name="rest" type="number" placeholder="Minutes of Rest"></input>
+        <input onChange={e => setIntervals(e.target.value)} value={intervals} name="intervals" type="number" placeholder="Number of Intervals/Time"></input>
         <input type="submit" value="Done"></input>
       </form>
     </>

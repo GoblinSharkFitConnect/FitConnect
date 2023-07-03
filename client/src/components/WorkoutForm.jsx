@@ -28,10 +28,10 @@ const WorkoutForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input onChange={e => setName(e.target.value)} name="name" type="text" placeholder="Workout Name"></input>
-      <input onChange={e => setGoal(e.target.value)} name="goals" type="text" placeholder="Goals"></input>
+      <input onChange={e => setName(e.target.value)} value={name} name="name" type="text" placeholder="Workout Name"></input>
+      <input onChange={e => setGoal(e.target.value)} value={goal} name="goals" type="text" placeholder="Goals"></input>
       <label htmlFor="completed">completed: </label>
-      <input onChange={e => setComplete((prevComplete) => !prevComplete)} name="completed" type="checkbox"></input>
+      <input onChange={e => setComplete(e.target.checked)} checked={complete} name="completed" type="checkbox"></input>
       <input name="day" type="date" placeholder="Date"></input>
       <input type="submit" value="Done"></input>
     </form>

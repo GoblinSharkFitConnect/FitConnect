@@ -28,10 +28,10 @@ const Signup = () => {
         <>
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
-                <input onChange={e => setFirstname(e.target.value)} name="firstName" type="text" placeholder="First Name"></input>
-                <input onChange={e => setLastname(e.target.value)} name="lastName" type="text" placeholder="Last Name"></input>
-                <input onChange={e => setUsername(e.target.value)} name="username" type="text" placeholder="username"></input>
-                <input onChange={e => setPassword(e.target.value)} name="password" type="password" placeholder="password"></input>
+                <input onChange={e => setFirstname(e.target.value)} value={firstname} name="firstName" type="text" placeholder="First Name"></input>
+                <input onChange={e => setLastname(e.target.value)} value={lastname} name="lastName" type="text" placeholder="Last Name"></input>
+                <input onChange={e => setUsername(e.target.value)} value={username} name="username" type="text" placeholder="username"></input>
+                <input onChange={e => setPassword(e.target.value)} value={password} name="password" type="password" placeholder="password"></input>
                 <input type="submit" value="Sign Up"></input>
             </form>
         </>
