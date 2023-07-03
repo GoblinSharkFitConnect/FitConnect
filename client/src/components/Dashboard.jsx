@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect} from 'react';
-import Workout from "./Workout";
-
+import Workout from "./Workout.jsx";
+import WorkoutForm from "./WorkoutForm.jsx"
 
 const Dashboard = () => {
 
@@ -11,6 +11,7 @@ const Dashboard = () => {
 
     return (
         <div>
+            <WorkoutForm />
             <p>This is the dashboard.</p>
             {workoutList}
         </div>
